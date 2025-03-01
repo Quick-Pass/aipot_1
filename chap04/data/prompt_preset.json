@@ -1,0 +1,60 @@
+{
+  "person": {
+    "age": ["10s", "20s", "30s", "40s", "50s", "60s", "70s"],
+    "race": ["Caucasian","African","Asian","Hispanic","Middle Eastern","Indigenous","Pacific Islander","South Asian"],
+    "gender": ["male", "female"]
+  },
+  "quality": {
+    "resolution": ["highres","4K","8K","UHD","photorealistic","cinematic","IMAX"],
+    "detail": ["ultra-detailed","intricate details","hyper-realistic","fine textures","overly detailed","ornate design","baroque style"],
+    "render": ["realistic","photorealistic","cinematic","3D render","anime style","pixel art","watercolor painting","oil painting","sketch","vector art","minimalist","cyberpunk","steampunk","fantasy illustration","dark fantasy","sci-fi concept art","isometric","noir","art deco","surreal"]
+  },
+  "apperance": {
+    "hair": ["short hair","long hair","curly hair","straight hair","wavy hair","bald","buzz cut","ponytail","braided hair","dreadlocks","afro","undercut","side-swept bangs","messy hair","sleek hair","spiky hair","top knot","mullet"],
+    "makeup": ["natural makeup","heavy makeup","smokey eyes","bold red lips","matte lipstick","glossy lips","eyeliner wings","freckles makeup","gothic makeup","pastel makeup","vibrant eyeshadow","minimalist makeup","K-beauty makeup","retro makeup","glamorous Hollywood makeup"],
+    "skin": ["pale skin","fair skin","light skin","olive skin","tan skin","medium skin","dark skin","deep brown skin","freckled skin","alabaster skin","porcelain skin","golden skin","bronze skin"],
+    "body": ["slim","athletic","muscular","curvy","hourglass","petite","plus-size","lean","broad shoulders","stocky","tall and slender","short and stout","toned physique","chubby","lanky"]
+  },
+  "clothing": {
+    "tops": ["t-shirt","tank top","hoodie","sweater","cardigan","blouse","button-up shirt","polo shirt","crop top","jacket","trench coat","leather jacket","denim jacket","blazer","vest","kimono","turtleneck"],
+    "bottoms": ["jeans","shorts","cargo pants","sweatpants","leggings","skirt","denim shorts","trousers","slacks","culottes","joggers","leather pants","bell-bottom pants","pleated skirt"],
+    "colors": ["red","blue","green","yellow","black","white","gray","pink","purple","brown","beige","teal","navy","gold","silver","neon green","pastel lavender"],
+    "patterns": ["solid color","striped","polka dot","floral","camouflage","plaid","herringbone","paisley","tie-dye","checkerboard","gradient","abstract pattern","animal print","geometric shapes"],
+    "accessories": ["sunglasses","hat","beanie","beret","scarf","gloves","watch","earrings","necklace","bracelet","ring","belt","handbag","backpack","choker","headband","piercings"],
+    "shoes": ["sneakers","boots","high heels","sandals","loafers","dress shoes","slippers","flip-flops","combat boots","hiking boots","platform shoes","ballet flats","ankle boots"],
+    "style": ["casual","formal","streetwear","punk","gothic","bohemian","vintage","retro","preppy","hip-hop fashion","business casual","cyberpunk","steampunk","grunge","minimalist","sporty","y2k fashion","fantasy costume","elegant evening wear"]
+  },
+  "expression": {
+    "emotion": ["neutral","happy","sad","angry","excited","fearful","surprised","confident","shy","smirking","worried","thoughtful","melancholic","content","joyful","grinning","laughing","crying","furious","intense","calm","serene"],
+    "gaze_direction": ["looking straight","looking left","looking right","looking up","looking down","side glance","eye contact","looking away","gazing into distance","looking down shyly","staring intensely","squinting","rolling eyes","glancing back"],
+    "skin_tone": ["pale skin","fair skin","light skin","olive skin","tan skin","medium skin","dark skin","deep brown skin","freckled skin","porcelain skin","golden skin","bronze skin","rosy complexion"],
+    "body_type": ["slim","athletic","muscular","curvy","hourglass","petite","plus-size","lean","broad shoulders","stocky","tall and slender","short and stout","toned physique","chubby","lanky"],
+    "additional_mood": ["mysterious","dreamy","romantic","dark and brooding","cheerful and bright","melancholic","serious","playful","intense","ethereal","majestic","sinister","mischievous","gentle and kind","determined","stoic","thought-provoking","surreal"]
+  },
+  "background": {
+    "location": ["forest","mountain","beach","city skyline","urban alley","rooftop","abandoned building","cozy cafe","library","ancient temple","castle","space station","desert","futuristic city","countryside","snowy landscape","underwater world","cyberpunk street","fantasy kingdom","haunted mansion"],
+    "time": ["morning","afternoon","sunset","twilight","night","midnight","golden hour","blue hour","full moon night","dawn","dusk"],
+    "weather": ["clear sky","sunny","cloudy","stormy","rainy","foggy","snowy","thunderstorm","hazy","drizzling","blizzard","heavy rain","eerie mist","dust storm","humid and tropical"],
+    "mood": ["serene","mysterious","dramatic","romantic","dark and eerie","nostalgic","whimsical","dreamlike","melancholic","warm and cozy","epic and grand","sinister and ominous","surreal","fantastical","futuristic","dystopian","vintage and retro","luxurious","post-apocalyptic"]
+  },
+  "composition": {
+    "angle": ["eye level","low angle","high angle","bird's-eye view","worm's-eye view","Dutch angle","close-up shot","medium shot","wide shot","over-the-shoulder shot","first-person perspective"],
+    "subject_position": ["centered","off-center","leading lines","rule of thirds","silhouette framing","foreground emphasis","background focus","diagonal placement","dynamic motion","symmetrical balance","asymmetrical balance"],
+    "depth": ["shallow depth of field","deep depth of field","blurred background","sharp foreground","cinematic depth","layered composition","bokeh effect","misty depth","crisp and detailed","soft and diffused"],
+    "framing": ["natural framing","window framing","doorway framing","silhouette framing","dramatic close-up","wide landscape framing","soft focus framing","vignette effect","frame within a frame","overexposed edge framing"],
+    "clothing_style": ["casual","formal","streetwear","punk","gothic","bohemian","vintage","retro","preppy","hip-hop fashion","business casual","cyberpunk","steampunk","grunge","minimalist","sporty","y2k fashion","fantasy costume","elegant evening wear"]
+  },
+  "camera": {
+    "camera_type": ["DSLR","mirrorless","point and shoot","medium format","large format","film camera","cinema camera","smartphone camera","instant camera","action camera","360-degree camera","thermal camera","infrared camera","drone camera"],
+    "brand": ["Canon","Nikon","Sony","Fujifilm","Leica","Panasonic","Olympus","Pentax","Hasselblad","Phase One","GoPro","DJI","Blackmagic","RED Digital Cinema","Arri"],
+    "lens_type": ["wide-angle lens","standard lens","telephoto lens","macro lens","fisheye lens","tilt-shift lens","prime lens","zoom lens","anamorphic lens","portrait lens","super telephoto lens"],
+    "aperture": ["f/1.2","f/1.4","f/1.8","f/2.0","f/2.8","f/4.0","f/5.6","f/8.0","f/11","f/16","f/22"],
+    "film_type": ["Kodak Portra 400","Fujifilm Velvia 50","Ilford HP5 Plus 400","Kodak Tri-X 400","Fujifilm Superia X-Tra 400","Kodak Ektar 100","Cinestill 800T","Polaroid SX-70","Kodak Gold 200","Lomography Color 800","Agfa Vista 200","Kodak Ultramax 400"]
+  },
+  "lighting": {
+    "light_source": ["natural sunlight","soft daylight","golden hour light","moonlight","candlelight","LED panel","fluorescent light","neon light","spotlight","streetlight","strobe light","studio softbox","ring light","torchlight","lantern light","firelight","car headlights","projector light"],
+    "light_intensity": ["very soft","soft","moderate","strong","harsh","extreme"],
+    "light_color": ["warm white","cool white","neutral white","golden yellow","blue-tinted","red glow","green neon","purple ambient","soft pink","orange sunset","cyan teal","vivid multicolor"],
+    "shadow_characteristics": ["soft shadows","hard shadows","deep shadows","long shadows","dramatic shadows","subtle shading","high contrast shadows","low contrast shadows","cinematic chiaroscuro","no shadows"]
+  }
+}
