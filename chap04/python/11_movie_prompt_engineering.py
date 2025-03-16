@@ -5,7 +5,6 @@ import time
 from runwayml import RunwayML
 
 client = RunwayML(api_key='API 키 입력')
-# prompt_text = 'Landscape under the sunset sky, mysterious and dreamy atmosphere, digital art style'
 
 task = client.image_to_video.create(
     model='gen3a_turbo',
