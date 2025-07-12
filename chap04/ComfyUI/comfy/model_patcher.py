@@ -17,23 +17,26 @@
 """
 
 from __future__ import annotations
-from typing import Optional, Callable
-import torch
+
+import collections
 import copy
 import inspect
 import logging
-import uuid
-import collections
 import math
+import uuid
+from typing import Callable, Optional
 
-import comfy.utils
+import torch
+
 import comfy.float
-import comfy.model_management
-import comfy.lora
 import comfy.hooks
+import comfy.lora
+import comfy.model_management
 import comfy.patcher_extension
-from comfy.patcher_extension import CallbacksMP, WrappersMP, PatcherInjection
+import comfy.utils
 from comfy.comfy_types import UnetWrapperFunction
+from comfy.patcher_extension import CallbacksMP, PatcherInjection, WrappersMP
+
 
 def string_to_seed(data):
     crc = 0xFFFFFFFF
@@ -375,6 +378,9 @@ class ModelPatcher:
 
     def set_model_sampler_pre_cfg_function(self, pre_cfg_function, disable_cfg1_optimization=False):
         self.model_options = set_model_options_pre_cfg_function(self.model_options, pre_cfg_function, disable_cfg1_optimization)
+
+    def set_model_sampler_calc_cond_batch_function(self, sampler_calc_cond_batch_function):
+        self.model_options["sampler_calc_cond_batch_function"] = sampler_calc_cond_batch_function
 
     def set_model_unet_function_wrapper(self, unet_wrapper_function: UnetWrapperFunction):
         self.model_options["model_function_wrapper"] = unet_wrapper_function
@@ -747,6 +753,7 @@ class ModelPatcher:
 
     def partially_unload(self, device_to, memory_to_free=0):
         with self.use_ejected():
+            hooks_unpatched = False
             memory_freed = 0
             patch_counter = 0
             unload_list = self._load_list()
@@ -769,6 +776,10 @@ class ModelPatcher:
                             if not lowvram_possible:
                                 move_weight = False
                                 break
+
+                            if not hooks_unpatched:
+                                self.unpatch_hooks()
+                                hooks_unpatched = True
 
                             if bk.inplace_update:
                                 comfy.utils.copy_to_param(self.model, key, bk.weight)
@@ -1089,7 +1100,6 @@ class ModelPatcher:
 
     def patch_hooks(self, hooks: comfy.hooks.HookGroup):
         with self.use_ejected():
-            self.unpatch_hooks()
             if hooks is not None:
                 model_sd_keys = list(self.model_state_dict().keys())
                 memory_counter = None
@@ -1100,12 +1110,16 @@ class ModelPatcher:
                 # if have cached weights for hooks, use it
                 cached_weights = self.cached_hook_patches.get(hooks, None)
                 if cached_weights is not None:
+                    model_sd_keys_set = set(model_sd_keys)
                     for key in cached_weights:
                         if key not in model_sd_keys:
                             logging.warning(f"Cached hook could not patch. Key does not exist in model: {key}")
                             continue
                         self.patch_cached_hook_weights(cached_weights=cached_weights, key=key, memory_counter=memory_counter)
+                        model_sd_keys_set.remove(key)
+                    self.unpatch_hooks(model_sd_keys_set)
                 else:
+                    self.unpatch_hooks()
                     relevant_patches = self.get_combined_hook_patches(hooks=hooks)
                     original_weights = None
                     if len(relevant_patches) > 0:
@@ -1116,6 +1130,8 @@ class ModelPatcher:
                             continue
                         self.patch_hook_weight_to_device(hooks=hooks, combined_patches=relevant_patches, key=key, original_weights=original_weights,
                                                             memory_counter=memory_counter)
+            else:
+                self.unpatch_hooks()
             self.current_hooks = hooks
 
     def patch_cached_hook_weights(self, cached_weights: dict, key: str, memory_counter: MemoryCounter):
@@ -1172,17 +1188,23 @@ class ModelPatcher:
         del out_weight
         del weight
 
-    def unpatch_hooks(self) -> None:
+    def unpatch_hooks(self, whitelist_keys_set: set[str]=None) -> None:
         with self.use_ejected():
             if len(self.hook_backup) == 0:
                 self.current_hooks = None
                 return
             keys = list(self.hook_backup.keys())
-            for k in keys:
-                comfy.utils.copy_to_param(self.model, k, self.hook_backup[k][0].to(device=self.hook_backup[k][1]))
+            if whitelist_keys_set:
+                for k in keys:
+                    if k in whitelist_keys_set:
+                        comfy.utils.copy_to_param(self.model, k, self.hook_backup[k][0].to(device=self.hook_backup[k][1]))
+                        self.hook_backup.pop(k)
+            else:
+                for k in keys:
+                    comfy.utils.copy_to_param(self.model, k, self.hook_backup[k][0].to(device=self.hook_backup[k][1]))
 
-            self.hook_backup.clear()
-            self.current_hooks = None
+                self.hook_backup.clear()
+                self.current_hooks = None
 
     def clean_hooks(self):
         self.unpatch_hooks()
