@@ -1,0 +1,1 @@
+python.exe -m venv C:\aipot_1\.venv
